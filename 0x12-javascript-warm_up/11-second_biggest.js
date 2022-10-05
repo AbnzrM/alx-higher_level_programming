@@ -1,9 +1,9 @@
 #!/usr/bin/node
+// searches the second biggest integer in the list of arguments.
 
-const process = require('process');
-const args = process.argv;
-if (args.length < 4) {
+if (process.argv.length <= 3) {
   console.log(0);
 } else {
-  console.log(args.sort().reverse()[1]);
+  const list = process.argv.sort();
+  console.log(list.reverse()[1]);
 }
