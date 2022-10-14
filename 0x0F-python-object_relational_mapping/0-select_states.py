@@ -1,22 +1,30 @@
 #!/usr/bin/python3
-"""list all states available"""
+
+"""
+    A script that lists all states from the database hbtn_0e_0_usa
+    Username, password and database names are given as user args
+"""
 
 
+import sys
 import MySQLdb
-from sys import argv
 
 
 if __name__ == '__main__':
-    database = MySQLdb.connect(port=3306,
-                               host='localhost',
-                               charset='utf8',
-                               user=argv[1],
-                               passwd=argv[2],
-                               db=argv[3])
-    curs = database.cursor()
-    curs.execute("SELECT * FROM states ORDER BY id ASC")
-    rows = curs.fetchall()
-    for row in rows:
+    db = MySQLdb.connect(user=sys.argv[1],
+                         passwd=sys.argv[2],
+                         db=sys.argv[3],
+                         host='localhost',
+                         port=3306)
+
+    cursor = db.cursor()
+
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+
+    data = cursor.fetchall()
+
+    for row in data:
         print(row)
-    curs.close()
-    database.close()
+
+    cursor.close()
+    db.close()
